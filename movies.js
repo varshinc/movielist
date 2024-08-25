@@ -31,9 +31,9 @@ router.post("/", async (req, res) => {
     console.log(req.body);
     const moviesData = req.body;
     const newMovie = new Movie(moviesData);
-    await newMovie.save()
+    await newMovie.save();
     res.json({
-        message: "movie added sucessfully"
+        message: "movie added sucessfully",
     });
     } catch (error) {
         console.log(error);
@@ -46,14 +46,14 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try{
         const movieId = req.params.id;
-        const updateMovieData = req.body;
-        await Movie.findlyIdAndUpdate(movieId, updateMovieData);
+        const updatedMovieData = req.body;
+        await Movie.findByIdAndUpdate(movieId, updatedMovieData)
         res.json({
             message: "Movie updated sucessfully",
         });
     }   catch (error) {
         console.log(error);
-        res.status(500).json({
+        res.status(400).json({
             message: "Internal Server Error",
         });
     }
@@ -62,14 +62,13 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try{
         const movieId = req.params.id;
-        const deleteMovieData = req.body;
-        await Movie.findlyIdAndRemove(movieId, removeMovieData);
+        await Movie.findByIdAndDelete(movieId)
         res.json({
             message: "Movie deleted sucessfully",
         });
     }   catch (error) {
         console.log(error);
-        res.status(500).json({
+        res.status(400).json({
             message: "Internal Server Error",
         });
     }
