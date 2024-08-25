@@ -5,6 +5,7 @@ const movieSchema = new mongooese.Schema({
   name: {
     type: String,
     required: true,
+    unique:true,
   },
   description: {
     type: String,
